@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   export let phrase = '';
-  const dispatch = createEventDispatcher<{replay: null, back: null}>();
+  const dispatch = createEventDispatcher<{ replay: null; back: null }>();
 
   let tries = new Array<string>();
   const isALetter = /^\p{Letter}$/u;
@@ -15,7 +15,11 @@
         .reduce((p, c) => `${p} ${c}`)
     : '';
   $: failedTries = tries.filter((char) => !phrase.includes(char));
-  $: gameState = !solvablePhrase.includes('_') ? 'won' : failedTries.length >= 7 ? 'lost' : '';
+  $: gameState = !solvablePhrase.includes('_')
+    ? 'won'
+    : failedTries.length >= 7
+    ? 'lost'
+    : '';
   $: isGameWon = gameState == 'won';
   $: isGameOver = gameState == 'lost';
 
@@ -23,15 +27,15 @@
 
   const handleKey = (e: KeyboardEvent) => {
     let char = e.key.toUpperCase();
-    
+
     if (gameState) {
       if (char == 'ENTER') {
         playAgain();
-      } else if(char == 'ESCAPE') {
+      } else if (char == 'ESCAPE') {
         goBack();
       }
     }
-    
+
     if (gameState || tries.includes(char)) return;
 
     if (isALetter.test(char)) {
@@ -58,7 +62,7 @@
     class:text-success={isGameWon}
     class:text-danger={isGameOver}
   >
-    You {gameState}!
+    {isGameOver ? 'Game over!' : 'You win!'}
   </h1>
 
   <button class="d-block my-3 mx-auto btn btn-success" on:click={playAgain}>
@@ -78,7 +82,11 @@
 
 <h2 class="text-center">
   {#each solvablePhrase as letter}
-    {@html letter == ' ' ? '&nbsp;' : isALetter.test(letter) ? `<u>${letter}</u>` : letter}
+    {@html letter == ' '
+      ? '&nbsp;'
+      : isALetter.test(letter)
+      ? `<u>${letter}</u>`
+      : letter}
   {/each}
 </h2>
 
@@ -99,7 +107,7 @@
 {/if}
 
 {#if failedTries.length}
-  <img class="d-block w-25 mx-auto" {src} alt="hangman">
+  <img class="d-block w-25 mx-auto" {src} alt="hangman" />
 {/if}
 
 <style>

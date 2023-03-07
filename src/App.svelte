@@ -1,6 +1,6 @@
 <script lang="ts">
-  import PhraseContainer from "@/lib/components/PhraseContainer.svelte";
-  import { getRandomPhrase } from "@/lib/functions/getRandomPhrase";
+  import PhraseContainer from '@/lib/components/PhraseContainer.svelte';
+  import { getRandomPhrase } from '@/lib/functions/getRandomPhrase';
 
   let phrase = '';
   const languages = ['en', 'hu'];
@@ -33,9 +33,7 @@
 
 {#if !gameStarted}
   <div class="w-25 mx-auto">
-    <h3 class="text-center">
-      Choose a language
-    </h3>
+    <h3 class="text-center">Choose a language</h3>
     <select class="form-select bg-dark text-white" bind:value={language}>
       {#each languages as lang}
         <option value={lang}>{lang}</option>
