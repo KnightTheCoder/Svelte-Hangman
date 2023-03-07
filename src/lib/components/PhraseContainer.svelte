@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
   export let phrase = '';
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{replay: null, back: null}>();
 
-  let tries = [];
+  let tries = new Array<string>();
   const isALetter = /^\p{Letter}$/u;
 
   $: solvablePhrase = phrase.length
@@ -21,7 +21,7 @@
 
   $: src = `images/hangman${failedTries.length}.png`;
 
-  const handleKey = (e) => {
+  const handleKey = (e: KeyboardEvent) => {
     let char = e.key.toUpperCase();
     
     if (gameState) {

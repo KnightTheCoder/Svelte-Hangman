@@ -1,15 +1,14 @@
-<script>
+<script lang="ts">
   import PhraseContainer from "@/lib/components/PhraseContainer.svelte";
   import { getRandomPhrase } from "@/lib/functions/getRandomPhrase";
 
   let phrase = '';
-  const languages = ['en', 'hu']
+  const languages = ['en', 'hu'];
   let language = 'en';
   let gameStarted = false;
 
   const getPhrase = async () => {
-    let resp = getRandomPhrase(language);
-    phrase = resp.toUpperCase();
+    phrase = getRandomPhrase(language).toUpperCase();
   };
 
   const startGame = () => {
@@ -23,7 +22,7 @@
     gameStarted = false;
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key == 'Enter') {
       startGame();
     }
