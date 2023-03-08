@@ -1,11 +1,13 @@
 <script lang="ts">
   import PhraseContainer from '@/lib/components/PhraseContainer.svelte';
   import { getRandomPhrase } from '@/lib/functions/getRandomPhrase';
+  import { setTitle } from '@/lib/functions/title';
 
   let phrase = '';
   const languages = ['en', 'hu'];
   let language = 'en';
   let gameStarted = false;
+  setTitle('Home');
 
   const getPhrase = async () => {
     phrase = getRandomPhrase(language).toUpperCase();
@@ -15,11 +17,13 @@
     if (!gameStarted) {
       gameStarted = true;
       getPhrase();
+      setTitle('Game');
     }
   };
 
   const goBack = () => {
     gameStarted = false;
+    setTitle('Home');
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
